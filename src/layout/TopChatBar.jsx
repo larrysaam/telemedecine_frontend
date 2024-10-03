@@ -1,15 +1,19 @@
 import { ChatTopProfile } from "../components/Profile/ChatProfile"
 import { CallBtn, VideoBtn } from "../components/Button/Buttons"
+import { useNavigate } from "react-router-dom"
 
 
 export const TopChatBar =({imagesrc, userName, status})=>{
+
+    const nav = useNavigate()
 
     const OpenCall=()=>{
         console.log("call")
     }
 
     const OpenVideo=()=>{
-        console.log("video")
+        console.log('videocall')
+        nav('/videoCall')
     }
 
     return(

@@ -47,7 +47,7 @@ export const VideoBtn=({OpenVideo})=>{
         <button className="bg-none w-6 border-none cursor-pointer">
             <IoMdVideocam 
                 className="w-6 h-6 text-brightgreen"
-                onClick={()=>OpenVideo}
+                onClick={OpenVideo}
             />
         </button>
     )
