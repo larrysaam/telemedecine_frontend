@@ -121,7 +121,7 @@ export const ScheduleLeftSide =({userName, setUserName, speciality, setSpecialit
             <div className="flex justify-center items-center m-auto">
                 <input 
                     type="text"
-                    value={(userName === ''? 'Dr.' : `Dr. ${userName}`)} 
+                    value={(userName === ''? 'Dr.' : `${userName}`)} 
                     onChange={(e)=>setUserName(e.target.value)}
                     className="w-fit h-9 text-xl font-sans text-center rounded-full bg-none p-4 pl-4 outline-bggray"
                 />
