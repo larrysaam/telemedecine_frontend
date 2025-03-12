@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { SendingMessageCard, ReceivingMessageCard } from "../components/MessageCard/messageCard"
 
-export const MessageArea =({messages, myid})=>{
+export const MessageArea =({scrollableDivRef, messages, myid})=>{
 
     useEffect(()=>{
         console.log('messages _ ', messages)
@@ -10,23 +10,22 @@ export const MessageArea =({messages, myid})=>{
 
 
     return (
-        <div className="w-full h-full flex-col justify-start align-top bg-lightgray overflow-y-scroll">
+        <div  ref={scrollableDivRef} className="w-full h-full pb-32 flex-col justify-start align-top bg-bggray overflow-y-scroll">
 
-            {/* {
-                (messages) ?
+            {
+                
+                (messages.chat) ?
                 messages.chat.map((msg, i)=>{
                     if(msg.receiver === myid){
-                        <ReceivingMessageCard text={msg.content} key={i}/>
+                        return(<ReceivingMessageCard text={msg.content} key={i}/>)
                     }else{
-                        <SendingMessageCard text={msg.content} key={i}/>
+                        return(<SendingMessageCard text={msg.content} key={i}/>)
                     }
                 })
                 :
                 ''
-            } */}
+            }
             
-           
-            <SendingMessageCard text={'Hello'}/>
 
         </div>
     )

@@ -14,7 +14,7 @@ export const SendMsgBtn=({sendMsg})=>{
         <button className="bg-none w-20 border-none">
             <IoMdSend 
                 className="w-8 h-8 text-brightgreen hover:w-9 hover:h-9" 
-                onClick={()=>sendMsg}
+                onClick={sendMsg}
             />
         </button>
     )

@@ -40,17 +40,22 @@ function App() {
 
   useEffect(()=>{
 
+    localStorage.clear()
+
     if(user){
       console.log(user.emailAddresses[0].emailAddress)
-      localStorage.setItem('username', user.emailAddresses[0].emailAddress)
+      localStorage.setItem('emial', user.emailAddresses[0].emailAddress)
       axios.get(`${url}${user.emailAddresses[0].emailAddress}`)
-      .then(response => {
-        console.log(response.data.data[0]._id)
-        const data = response.data.data[0];
+      .then(async response => {
+        console.log(await response.data.data[0]._id)
+        const data = await response.data.data[0];
+
         localStorage.setItem("userid",data._id)
-        localStorage.setItem("title",data.title)
+        localStorage.setItem("title", data.title)
         localStorage.setItem("myname",data.username)
 
+        
+        
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -66,26 +71,26 @@ function App() {
   return (
     <div className="h-screen">
         <Routes>
-          <Route path='/profile' element={<SignedIn><Profile/></SignedIn>}/>
-          <Route
+            <Route
               path="/sign-in/*"
               element={<SignIn routing="path" path="/sign-in" />}
             />
             <Route
               path="/sign-up/*"
               element={<SignUp routing="path" path="/sign-up" />}
-          />
-          <Route path='/' element={<SignedIn><MainBoard/></SignedIn>}>
-            <Route path='/' element={<SignedIn><Dashboard/></SignedIn>}/>
-            <Route path='/search' element={<SignedIn><Search/></SignedIn>}/>
-            <Route path='/chat' element={<SignedIn><Chat/></SignedIn>}/>
-            <Route path='/videoCall' element={<SignedIn><VideoCallView/></SignedIn>}/>
-            <Route path='/consultations' element={<SignedIn><Consultations/></SignedIn>}/>
-            <Route path='/videoCall/Reveiw' element={<SignedIn><AfterCallReview/></SignedIn>}/>
-            <Route path='/notifications' element={<SignedIn><Notif/></SignedIn>}/>
-            <Route path='/specialists' element={<SignedIn><Search/></SignedIn>}/>
-            <Route path='/schedule' element={<SignedIn><Schedule/></SignedIn>}/>
-            <Route path='/logout' element={<SignedIn><SignOutButton/></SignedIn>}/>
+            />
+            <Route path='/' element={<SignedIn><Profile/></SignedIn>}/>
+            <Route path='/' element={<SignedIn><MainBoard/></SignedIn>}>
+              <Route path='/home' element={<SignedIn><Dashboard/></SignedIn>}/>
+              <Route path='/search' element={<SignedIn><Search/></SignedIn>}/>
+              <Route path='/chat' element={<SignedIn><Chat/></SignedIn>}/>
+              <Route path='/videoCall' element={<SignedIn><VideoCallView/></SignedIn>}/>
+              <Route path='/consultations' element={<SignedIn><Consultations/></SignedIn>}/>
+              <Route path='/videoCall/Reveiw' element={<SignedIn><AfterCallReview/></SignedIn>}/>
+              <Route path='/notifications' element={<SignedIn><Notif/></SignedIn>}/>
+              <Route path='/specialists' element={<SignedIn><Search/></SignedIn>}/>
+              <Route path='/schedule' element={<SignedIn><Schedule/></SignedIn>}/>
+              <Route path='/logout' element={<SignedIn><SignOutButton/></SignedIn>}/>
           </Route> 
         </Routes>
         <SignedOut><RedirectToSignIn/></SignedOut>

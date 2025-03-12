@@ -9,10 +9,10 @@ export const SearchCard = ({doctorId, username, email, location, reviewsnum, spe
     return(
         <div className="w-3/5 h-20 p-3 mb-4 pl-5 relative bg-bggray rounded-xl flex justify-start items-center hover:shadow-lg hover:shadow-brightgreen hover:ml-2 duration-500">
             <CgProfile 
-                className="h-14 w-14 rounded-full border-2 border-brightgreen text-brightgreen"
+                className="h-12 w-12 rounded-full border-2  text-brightgreen"
             />
 
-            <div className="h-24 w-40 flex flex-col justify-center items-start ml-5">
+            <div className="h-24 w-1/2 flex flex-col justify-center items-start ml-5">
                 <label className="font-sans font-bold text-lg text-left">{username}</label>
                 <p className=" rounded-xl text-black bg-lightestgray text-sm pl-3 pr-3">{speciality}</p>
             </div>

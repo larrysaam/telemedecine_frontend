@@ -10,7 +10,7 @@ export const ListStats =({title, data, column})=>{
     const nav = useNavigate()
 
     return(
-        <div className="w-full rounded-2xl pt-3 p-3 flex justify-centre items-center hover:shadow-xl hover:shadow-lightgray hover:scale-105 duration-500">
+        <div className="w-full rounded-2xl pt-3 p-3 bg-white flex justify-centre items-center hover:shadow-xl hover:shadow-lightgray">
             {/*React MUI Tables */}
             <MUIDataTable
                 title={title}

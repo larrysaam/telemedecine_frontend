@@ -8,7 +8,7 @@ export const Dashboard =()=>{
 
     const url = 'https://telemedecine-backend-ohl8.onrender.com/consult/'
     const url2 = 'https://telemedecine-backend-ohl8.onrender.com/user/'
-    const column = ["Patient Name", "Date", "Location", "Price"]
+    const column = ["userName", "Date", "Location", "Price"]
     const [consult, setConsult] = useState([])
     const [reviewCount, setReviewCount] = useState(0)
 
@@ -27,8 +27,8 @@ export const Dashboard =()=>{
         }else{
             axios.get(`${url}user/${localStorage.getItem('userid')}`)
             .then(res => {
-                console.log("consultations __ ", res.data.data )
                 setConsult(res.data.data)
+                console.log("consultations __ ", consult )
             })
             .catch(err => {
                 console.log(err)
@@ -42,6 +42,7 @@ export const Dashboard =()=>{
     useEffect(()=>{
         axios.get(`${url2}${localStorage.getItem('username')}`)
         .then(res => {
+            console.log('review1 ', res.data)
             console.log('review ', res.data.data[0].review.length)
             setReviewCount(res.data.data[0].review.length)
         })
@@ -51,38 +52,30 @@ export const Dashboard =()=>{
     },[])
 
 
-    // const col =[
-    //     {
-    //         name: 'Patient Name',
-    //         title: 'username'
-    //     },
-    //     {
-    //         name:
-    //         title:
-    //     },
-    //     {
-    //         name:
-    //         title:
-    //     },
-    //     {
-    //         name:
-    //         title:
-    //     },
-    // ]
+    const col =[
+        {
+            name: 'userName',
+            title: 'Patient Name'
+        },
+        {
+            name: 'scheduledDate',
+            title: 'Date'
+        }
+    ]
 
 
 
     return(
         <div className="h-full w-full flex-col justify-center items-center align-middle pt-20 overflow-y-scroll">
-            <div className="mb-10 w-full flex justify-evenly align-middle">
+            <div className="h-1/2 mb-10 w-full flex justify-evenly align-middle">
                 <Card  heading={'CONSULTATION'} counttype={"Total Consultation"} count={consult.length}/>
                 <Card  heading={'ASSISTANCE'} counttype={"Total Assistance"} count={consult.length}/>
                 <Card  heading={'RATING'} counttype={"Total Rating"} count={reviewCount}/>
             </div>
 
             <div className="w-5/6 h-1/2 bg-white rounded-xl shadow-2xl m-auto flex justify-end items-center">
-                <ListStats title={'consultations'} column={column} data={consult}/>
-            </div>
+                <ListStats title={'consultations'} column={col} data={consult}/>
+            </div> 
         </div>
     )
 }

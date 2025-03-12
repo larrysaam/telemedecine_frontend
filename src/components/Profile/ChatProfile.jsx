@@ -6,7 +6,7 @@ import docimg from '../../assets/images/doc.jpeg'
 
 export const ChatTopProfile=({imagesrc, userName, status})=>{
     return(
-        <div className="w-56 h-28 flex align-middle justify-center" >
+        <div className="w-72 h-full flex align-middle justify-center" >
             <div className="">
                 <img 
                     src={imagesrc} 
@@ -14,7 +14,7 @@ export const ChatTopProfile=({imagesrc, userName, status})=>{
                     className="h-10 w-10 rounded-full"
                 />
             </div>
-            <div className="flex-col justify-start align-middle ml-3">
+            <div className=" flex-col justify-start align-middle ml-3">
                 <h3 className="text-lg text-lightgray">{userName}</h3>
                 <p className=" text-sm text-green">{status}</p>
             </div>
@@ -24,7 +24,7 @@ export const ChatTopProfile=({imagesrc, userName, status})=>{
 
 export const ChatSideProfile=({imagesrc, userName, description, rating })=>{
     return(
-        <div className="w-1/4 h-full flex-col align-middle justify-center bg-white" >
+        <div className="w-1/5 h-full flex-col m-auto align-middle justify-center bg-white" >
             <div className="w-full">
                 <img 
                     src={docimg} 

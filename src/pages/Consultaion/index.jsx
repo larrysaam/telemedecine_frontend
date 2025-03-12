@@ -70,6 +70,7 @@ export const Consultations = ()=>{
                             return (
                                 (title === 'doctor')?
                                     <ChatListItem 
+                                        Id = {chats._id}
                                         doctorId={chats.doctorId}
                                         userId={chats.userId}
                                         Name={chats.userName}
@@ -80,9 +81,10 @@ export const Consultations = ()=>{
                                     />
                                     :
                                     <ChatListItem 
+                                        Id = {chats._id}
                                         doctorId={chats.doctorId}
                                         userId={chats.userId}
-                                        Name={`Dr. ${chats.doctorName}`}
+                                        Name={chats.doctorName}
                                         Location={chats.location}
                                         MeetingStatus={chats.status}
                                         timeleft={chats.schedule[0].timeslot}

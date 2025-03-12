@@ -2,11 +2,11 @@ import { TopChatBar } from "../../layout/TopChatBar"
 import { BottomChatBar } from "../../layout/BottomChatBar"
 import { ChatSideProfile } from "../../components/Profile/ChatProfile"
 import { MessageArea } from "../../layout/MessageArea"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Profile from '../../assets/images/Christ.png'
 import { useLocation } from "react-router-dom"
 import useFetchConsults from "../../hooks/useFetchConsults"
-import { io } from 'socket.io-client'
+import io from 'socket.io-client'
 import sendDM from "../../utils/sendDM"
 import axios from "axios"
 import docimg from '../../assets/images/doc.jpeg'
@@ -24,9 +24,10 @@ export const Chat =()=>{
     const [newMessage, setNewMessage] = useState([])
     const [input, setInput] = useState('')
     const [socket, setSocket] = useState(null)
+    const scrollableDivRef = useRef(null);
 
-    const url = 'https://telemedecine-backend-ohl8.onrender.com/chat/'
-    const url2 = 'https://telemedecine-backend-ohl8.onrender.com/user/v2/'
+    const url = 'http://localhost:5000/chat/'
+    const url2 = 'http://localhost:5000/user/v2/'
     const locate = useLocation()
 
     // const {response, loading, error} = useFetchConsults(`${url}${locate.state.doctorId}"_"${locate.state.userId}`)
@@ -80,7 +81,7 @@ export const Chat =()=>{
 
     // establish connection
     useEffect(()=>{
-        const newsocket = io(`https://telemedecine-backend-ohl8.onrender.com/`)
+        const newsocket = io(`http://localhost:5000/`)
         setSocket(newsocket)
 
         return ()=>{
@@ -121,13 +122,22 @@ export const Chat =()=>{
         
         socket.on("getMessage", res =>{
             console.log("received message : ",res)
-
+            
             if(myid !== res.receiver) return
 
-            setMessages((prev) => [...prev, res])
+            setMessages((prevMessage) => ({
+                ...prevMessage,
+                chat: [...prevMessage.chat, res],
+              }))
+
             console.log(messages)
 
         })
+
+        //scroll to bottom
+        if (scrollableDivRef.current) {
+            scrollableDivRef.current.scrollTop = scrollableDivRef.current.scrollHeight;
+        }
 
 
         return ()=>{
@@ -153,7 +163,25 @@ export const Chat =()=>{
 
         if(res.status === 200){
             setNewMessage(input)
-            setMessages(()=>[...messages, {content: input, sender: myid} ])
+            if(user === 'doctor'){
+                setMessages((prevMessage) => ({
+                    ...prevMessage,
+                    chat: [...prevMessage.chat, {content: input, sender: myid, receiver: locate.state.userId }],
+                  }))
+            }else{
+                setMessages((prevMessage) => ({
+                    ...prevMessage,
+                    chat: [...prevMessage.chat, {content: input, sender: myid, receiver: locate.state.doctorId}],
+                  }))
+            }
+            
+            setInput('')
+
+            //scroll to bottom
+            if (scrollableDivRef.current) {
+                scrollableDivRef.current.scrollTop = scrollableDivRef.current.scrollHeight;
+            }
+            // console.log("messages After ---> ", messages)
         }
     }
 
@@ -198,7 +226,7 @@ export const Chat =()=>{
                 
 
                 {/* message area */}
-                <MessageArea messages={messages} myid={myid}/>
+                <MessageArea  scrollableDivRef={scrollableDivRef} messages={messages} myid={myid}/>
 
                 {/* bottom input message bar */}
                 <BottomChatBar 

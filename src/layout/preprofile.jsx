@@ -16,16 +16,17 @@ export const PreProfile=()=>{
     const headers = {'Content-Type': 'application/json'};
 
 
+
+
     // This script updates the user profile 
     const updateProfile = async()=>{
-
         await axios.patch(`${url}${myid}`,
             { title: user, location: "Yaounde", phone, speciality: "", description},
-        ).then(data=>{
-            console.log("profile updated ", data)
-            localStorage.setItem("title",data.title)
-            localStorage.setItem("user", data)
-            nav('/')
+        ).then(async data=>{
+            console.log("profile updated ", await data)
+            localStorage.setItem("title", await data.title)
+            localStorage.setItem("user", await data)
+            nav('/home')
         })
         .catch(err=>{
             console.log(err)
@@ -85,9 +86,7 @@ export const PreProfile=()=>{
                     </div>
                     :
                     ''
-
             }
-            
 
             
 
