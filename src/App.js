@@ -47,14 +47,20 @@ function App() {
       localStorage.setItem('emial', user.emailAddresses[0].emailAddress)
       axios.get(`${url}${user.emailAddresses[0].emailAddress}`)
       .then(async response => {
-        console.log(await response.data.data[0]._id)
         const data = await response.data.data[0];
 
         localStorage.setItem("userid",data._id)
         localStorage.setItem("title", data.title)
         localStorage.setItem("myname",data.username)
 
-        
+        //If title of user is defined, skip to home page
+        if(data.title === null || data.title === ''){
+          console.log("title -> ", data.title)
+        }else{
+            console.log("title -> ", data.title)
+            nav('/home')
+        }
+
         
       })
       .catch(error => {
