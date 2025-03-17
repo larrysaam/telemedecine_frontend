@@ -1,5 +1,4 @@
 import React from "react";
-import MUIDataTable from "mui-datatables";
 import { useNavigate } from "react-router-dom";
 
 export const ListStats =({title, data, column})=>{
@@ -12,11 +11,7 @@ export const ListStats =({title, data, column})=>{
     return(
         <div className="w-full rounded-2xl pt-3 p-3 bg-white flex justify-centre items-center hover:shadow-xl hover:shadow-lightgray">
             {/*React MUI Tables */}
-            <MUIDataTable
-                title={title}
-                data={data}
-                columns={column}
-            />
+           
         </div>
     )
 }
