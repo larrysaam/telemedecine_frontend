@@ -26,8 +26,8 @@ export const Chat =()=>{
     const [socket, setSocket] = useState(null)
     const scrollableDivRef = useRef(null);
 
-    const url = 'http://localhost:5000/chat/'
-    const url2 = 'http://localhost:5000/user/v2/'
+    const url = 'https://telemedecine-backend-ohl8.onrender.com/chat/'
+    const url2 = 'https://telemedecine-backend-ohl8.onrender.com/user/v2/'
     const locate = useLocation()
 
     // const {response, loading, error} = useFetchConsults(`${url}${locate.state.doctorId}"_"${locate.state.userId}`)
@@ -81,7 +81,7 @@ export const Chat =()=>{
 
     // establish connection
     useEffect(()=>{
-        const newsocket = io(`http://localhost:5000/`)
+        const newsocket = io(`https://telemedecine-backend-ohl8.onrender.com/`)
         setSocket(newsocket)
 
         return ()=>{
